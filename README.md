@@ -1,0 +1,1 @@
+# veritabani-yonetimi-ve-modellemesi
