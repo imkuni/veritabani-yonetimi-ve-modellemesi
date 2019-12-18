@@ -1,0 +1,20 @@
+create function udf_getAnimalMealList
+(@dayInfo as datetime)
+	returns table as return 
+	select
+	A.name,
+	MT.info as MealTime,
+	FT.description as meal,
+	AFS.quantity
+	from tbl_Animal_Food_Schedule as AFS
+	inner join tbl_MealTime as MT
+	on AFS.mealTime_Id=MT.id
+	inner join tbl_Animal as A
+	on A.id = AFS.animal_Id
+	inner join dbo.tbl_FoodType as FT
+	on FT.id = AFS.food_id
+	where AFS.day=(select datepart(DW,convert(datetime, @dayInfo,104)))
+
+set dateformat DMY 
+select * from dbo.udf_getAnimalMealList
+('17.12.2019') order by MealTime DESC
