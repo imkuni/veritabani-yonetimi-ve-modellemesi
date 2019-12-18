@@ -1,0 +1,12 @@
+CREATE FUNCTION udf_getStaffList()
+RETURNS TABLE AS RETURN
+    SELECT 
+    S.id as StaffId,
+    S.name as StaffName,
+    StaffSurname=S.surname,
+    S.StartDate,
+    SR.definition as StaffRole
+    FROM tbl_Staff
+    inner join tbl_StaffRole on tbl_StaffRole.id = tbl_Staff.staffRole
+
+Select * from dbo.udf_getStaffList()
