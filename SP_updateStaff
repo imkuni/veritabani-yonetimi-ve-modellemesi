@@ -1,0 +1,23 @@
+create proc SP_updateStaff
+@id as int,
+@adres as nvarchar(50)=null,
+@telefon as nvarchar(50)=null
+as
+begin
+	IF exists(select * from tbl_staff where id=@id)
+	begin
+		UPDATE tbl_Staff
+			if @adres is null
+				SET phone = @telefon
+				where id=@id
+			if @telefon is null
+				SET address = @adres
+				where id=@id
+	end
+	else
+		
+end
+
+exec dbo.SP_updateStaff
+@id=1,
+@telefon= '0900500313131'
